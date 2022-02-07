@@ -5,7 +5,7 @@ import java.io.File
 
 
 fun main() {
-    /*
+    //Это не то, что требовалось. Но эта часть кода работает
     val euro = Currency ( "R01239","978","EUR",1,"Евро", 86.2826F, 86.2956F)
     euro.showCurrency()
     println("Введите сумму в рублях для конвертации в евро")
@@ -26,20 +26,21 @@ fun main() {
     var currencyList: MutableList<Currency> = mutableListOf(euro)
     currencyList.add(tenge)
     for (c in currencyList) c.showCurrency()
-*/
 
+    // Скачала файл себе. Не успела изучить, как в сети его находить
     val path ="daily_json.js"
     val jsonContent =  File(path).readLines().toString()
     println(jsonContent)
 
-    val listCBR: FileCBR = Json.decodeFromString<FileCBR> (jsonContent)
-    println(listCBR)
+//Вариант1 - ОШИБКА
+    val listCBR1: FileCBR = Json.decodeFromString<FileCBR> (jsonContent)
+    println(listCBR1)
 
+//Вариант2 - ОШИБКА
+    val mapper = jacksonObjectMapper()
+    val listCBR2 : FileCBR = mapper.readValue(jsonContent)
+    val currencyList2: List<Currency> = mapper.readValue(jsonContent)
 
-    //val mapper = jacksonObjectMapper()
-    //val listCBR : FileCBR = mapper.readValue(jsonContent)
-    //val currencyList2: List<Currency> = mapper.readValue(jsonContent)
-    //for (c in currencyList2) c.showCurrency()
 
 
 
